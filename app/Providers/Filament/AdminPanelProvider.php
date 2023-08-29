@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Resources\PostResource\Widgets\PostsOverview;
+use App\Filament\Widgets\WelcomeOverview;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -37,7 +39,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                WelcomeOverview::class,
+                PostsOverview::class,
             ])
             ->middleware([
                 EncryptCookies::class,
