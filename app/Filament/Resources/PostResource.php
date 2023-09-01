@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
+use App\Filament\Resources\Closure;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -31,12 +32,11 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->autofocus()
                     ->required()
-                    ->unique(Post::class, 'title')
                     ->placeholder(__('Title')),
                 Forms\Components\TextInput::make('slug')
                     ->autofocus()
                     ->required()
-                    ->unique(Post::class, 'slug')
+                    ->rules(['alpha_dash'])
                     ->placeholder(__('Slug')),
                 Forms\Components\Textarea::make('description')
                     ->columnSpan('full')
@@ -47,26 +47,40 @@ class PostResource extends Resource
                     ->columnSpan('full')
                     ->autofocus()
                     ->required()
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('posts/body_images')
                     ->placeholder(__('Body')),
                 Forms\Components\Select::make('status')
                     ->autofocus()
                     ->required()
                     ->placeholder(__('Status'))
-                    ->default('draft')
                     ->options([
                         'draft' => __('Draft'),
                         'published' => __('Published'),
                     ])
-                    ->native(false),
+                    ->native(false)
+                    ->default('draft'),
                 Forms\Components\BelongsToSelect::make('category_id')
                     ->autofocus()
                     ->required()
                     ->placeholder(__('Category'))
-                    ->relationship('category', 'name'),
+                    ->relationship('category', 'name')
+                    ->native(false)
+                    ->default(Post::first()->id),
                 Forms\Components\FileUpload::make('featured_image')
                     ->autofocus()
                     ->required()
+                    ->directory('posts/featured_images')
+                    ->disk('public')
+                    ->image()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '4:3',
+                    ])
                     ->placeholder(__('Featured Image')),
+                Forms\Components\Hidden::make('author_id')
+                    ->required()
+                    ->default(auth()->user()->id),
             ]);
     }
 
@@ -74,10 +88,24 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'draft' => __('Draft'),
+                        'published' => __('Published'),
+                    ])
+                    ->label(__('Status')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
