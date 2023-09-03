@@ -25,7 +25,7 @@
         @endforeach
 
         <div class="flex items-center justify-center">
-            <a href="{{ route('blog.latest') }}"
+            <a href="{{ route('blog.posts') }}"
                 class="bg-blue-600 text-white rounded-lg text-center lg:text-lg px-8 lg:max-w-max py-3 flex items-center justify-center font-semibold w-full">Load
                 More</a>
         </div>

@@ -62,9 +62,9 @@
                 </div>
             </div>
             <div class="flex-grow hidden lg:flex justify-end flex-col lg:flex-row pt-4 lg:pt-0" id="mobile_nav_body">
-                <a href="#" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Latest</a>
-                <a href="#" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Category</a>
-                <a href="#"
+                <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Latest Posts</a>
+                <a href="{{ route('blog.categories') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
+                <a href="{{ route('blog.about') }}"
                     class="bg-gray-800 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
                     Us</a>
             </div>
