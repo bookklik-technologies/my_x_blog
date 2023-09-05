@@ -71,9 +71,14 @@
             class="p-2 w-full lg:mx-auto lg:max-w-screen-xl rounded-lg flex flex-col lg:flex-row bg-white bg-opacity-80 backdrop-filter backdrop-blur">
             <div class="h-12 flex items-center">
                 <a href="{{ route('blog.home') }}">
-                    {{-- <img src="https://madewith.senangstart.net/themes/tailwind/images/senangstart_logo_dark.svg"
-                    class="h-full" /> --}}
-                    <div>My Blog</div>
+                    @php
+                        $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null
+                    @endphp
+                    @if ($logo_image)
+                        <img src="{{ $logo_image }}" class="h-full" />
+                    @else
+                        <div>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}</div>
+                    @endif
                 </a>
                 <div class="flex-grow lg:hidden"></div>
                 <div class="w-12 flex items-center justify-center lg:hidden" onclick="open_mobile_nav()">
@@ -123,7 +128,7 @@
             </a>
         </div>
         <div class="flex-grow h-8 flex items-center justify-center lg:justify-end font-semibold">
-            © 2023 My Blog
+            {{ $configs->firstWhere('key', 'footer') ? $configs->firstWhere('key', 'footer')->value : 'xBlog 2023' }}
         </div>
         <div class="flex justify-center">
             <a href="#" class="flex items-center justify-center w-8 h-8 text-sm lg:ml-4">
