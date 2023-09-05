@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Category')
+@section('title', 'Posts')
 
 @section('content')
     <div class="w-full h-28 lg:h-0"></div>
 
     <section class="px-6 lg:px-16">
-        <h1 class="text-2xl lg:text-5xl font-bold lg:mb-8 mb-4">Category: {{ $category->name }}</h1>
-
         @foreach ($posts as $post)
             <a href="{{ route('blog.post', $post->slug) }}">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 lg:mb-16 hover:opacity-80">

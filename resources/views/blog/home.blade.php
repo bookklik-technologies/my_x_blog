@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Page Title')
+@section('title', 'Home')
 
 @section('content')
     <div class="w-full h-28 lg:h-0"></div>
@@ -26,8 +26,9 @@
 
         <div class="flex items-center justify-center">
             <a href="{{ route('blog.posts') }}"
-                class="bg-blue-600 text-white rounded-lg text-center lg:text-lg px-8 lg:max-w-max py-3 flex items-center justify-center font-semibold w-full">Load
-                More</a>
+                class="bg-gray-800 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 h-12">
+                See More
+            </a>
         </div>
     </section>
 

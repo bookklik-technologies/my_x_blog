@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Page Title')
+@section('title', 'Post')
 
 @section('content')
     <div class="w-full h-28 lg:h-0"></div>
@@ -32,7 +32,7 @@
             <div class="flex text-lg font-semibold mb-2 lg:mb-6">
                 <p>{{ $post->created_at->format('d M Y') }}</p>
                 <div class="flex-grow"></div>
-                <p>{{ $post->category->name }}</p>
+                <p><a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->name }}</a></p>
             </div>
             <div class="mb-2 lg:mb-4 leading-normal">
                 <p>{!! html_entity_decode($post->body) !!}</p>
