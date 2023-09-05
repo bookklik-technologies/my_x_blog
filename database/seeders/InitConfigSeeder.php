@@ -90,7 +90,14 @@ class InitConfigSeeder extends Seeder
                 'value' => 'https://linkedin.com',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            ],
+            [
+                'id' => 12,
+                'key' => 'color_theme',
+                'value' => '#ff6600',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
