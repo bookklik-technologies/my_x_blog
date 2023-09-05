@@ -6,7 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'My Blog') }}</title>
+    <meta name="description" content="{{ $configs->firstWhere('key', 'description') ? $configs->firstWhere('key', 'description')->value : null }}">
+    <meta name="author" content="{{ $configs->firstWhere('key', 'author') ? $configs->firstWhere('key', 'author')->value : null }}">
+    <meta name="keywords" content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null }}">
+
+    <!--Open Graph Metatag-->
+    <meta property="og:type" content="website" />
+    @if (route('blog.post'))
+    <meta property="og:title" content="{{ $post->title }}" />
+    <meta property="og:description" content="{{ $post->description }}">
+    <meta property="og:url" content="{{ route('blog.post', $post->slug) }}" />
+    <meta property="og:image" content="{{ url('storage/' . $post->featured_image) }}" />
+    @else
+    <meta property="og:title" content="{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}" />
+    <meta property="og:description" content="{{ $configs->firstWhere('key', 'description') ? $configs->firstWhere('key', 'description')->value : null }}">
+    <meta property="og:url" content="{{ Route::current()->getName() }}" />
+    <meta property="og:image" content="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}" />
+    @endif
+    <meta property="og:image:width" content="256" />
+    <meta property="og:image:height" content="256" />
+
+    <title>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
