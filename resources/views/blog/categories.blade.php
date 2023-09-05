@@ -10,7 +10,7 @@
         <div class="flex justify-center">
         @foreach ($categories as $category)
             <a href="{{ route('blog.category', $category->slug) }}"
-                class="bg-gray-800 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 h-12">
+                class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 h-12">
                 {{ $category->name }}
             </a>
         @endforeach

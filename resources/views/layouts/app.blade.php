@@ -41,21 +41,25 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @php
+        $theme_color = $configs->firstWhere('key', 'theme_color') ? $configs->firstWhere('key', 'theme_color')->value : '#000000';
+    @endphp
+
     <style>
         * {
             font-family: 'Oxanium', cursive;
         }
 
-        .ss-bg-accent {
-            background-color: #007aff;
+        .xb-bg-accent {
+            background-color: {{ $theme_color }};
         }
 
-        .ss-text-accent {
-            color: #007aff;
+        .xb-text-accent {
+            color: {{ $theme_color }};
         }
 
-        .ss-border-accent {
-            border-color: #007aff;
+        .xb-border-accent {
+            border-color: {{ $theme_color }};
         }
     </style>
 </head>
@@ -85,7 +89,7 @@
                 <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Latest Posts</a>
                 <a href="{{ route('blog.categories') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
                 <a href="{{ route('blog.about') }}"
-                    class="bg-gray-800 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
+                    class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
                     Us</a>
             </div>
         </div>
@@ -105,19 +109,15 @@
 
     <footer class="flex flex-col lg:flex-row lg:max-w-screen-xl mx-auto pt-4 px-6 lg:px-16 mb-16">
         <div class="flex justify-center">
-            <a href="#"
+            <a href="{{ $configs->firstWhere('key', 'link_instagram') ? $configs->firstWhere('key', 'link_instagram')->value : '#' }}"
                 class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
-                <i class="fab fa-google"></i>
+                <i class="fab fa-instagram"></i>
             </a>
-            <a href="#"
-                class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="#"
+            <a href="{{ $configs->firstWhere('key', 'link_twitter') ? $configs->firstWhere('key', 'link_twitter')->value : '#' }}"
                 class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="#"
+            <a href="{{ $configs->firstWhere('key', 'link_facebook') ? $configs->firstWhere('key', 'link_facebook')->value : '#' }}"
                 class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
                 <i class="fab fa-facebook"></i>
             </a>
