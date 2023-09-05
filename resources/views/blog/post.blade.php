@@ -32,7 +32,7 @@
             <div class="flex text-lg font-semibold mb-2 lg:mb-6">
                 <p>{{ $post->created_at->format('d M Y') }}</p>
                 <div class="flex-grow"></div>
-                <p><a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->name }}</a></p>
+                <p><a href="{{ route('blog.category', $post->category->slug) }}" class="xb-text-accent">{{ $post->category->name }}</a></p>
             </div>
             <div class="mb-2 lg:mb-4 leading-normal">
                 <p>{!! html_entity_decode($post->body) !!}</p>
