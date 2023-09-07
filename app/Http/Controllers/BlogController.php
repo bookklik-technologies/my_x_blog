@@ -48,4 +48,9 @@ class BlogController extends Controller
 
         return view('blog.categories', ['categories' => $categories]);
     }
+
+    public function about()
+    {
+        return view('blog.about');
+    }
 }

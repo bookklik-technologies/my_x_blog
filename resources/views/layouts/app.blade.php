@@ -28,7 +28,7 @@
 
 	<link rel="shortcut icon" href="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}" type="image/x-icon">
 
-    <title>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}</title>
+    <title>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'My_x_Blog') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,7 +100,7 @@
                 </div>
             </div>
             <div class="flex-grow hidden lg:flex justify-end flex-col lg:flex-row pt-4 lg:pt-0" id="mobile_nav_body">
-                <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Latest Posts</a>
+                <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">All Posts</a>
                 <a href="{{ route('blog.categories') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
                 <a href="{{ route('blog.about') }}"
                     class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
@@ -137,10 +137,10 @@
             </a>
         </div>
         <div class="flex-grow h-8 flex items-center justify-center lg:justify-end font-semibold">
-            {{ $configs->firstWhere('key', 'footer') ? $configs->firstWhere('key', 'footer')->value : 'xBlog 2023' }}
+            {{ $configs->firstWhere('key', 'footer') ? $configs->firstWhere('key', 'footer')->value : 'My_x_Blog 2023' }}
         </div>
         <div class="flex justify-center">
-            <a href="#" class="flex items-center justify-center w-8 h-8 text-sm lg:ml-4">
+            <a href="#" class="flex items-center justify-center w-8 h-8 text-sm lg:ml-4 rounded-md xb-bg-accent text-white">
                 <i class="fas fa-arrow-up"></i>
             </a>
         </div>
