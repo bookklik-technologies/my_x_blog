@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Get;
 
 class ConfigResource extends Resource
 {
@@ -23,25 +24,38 @@ class ConfigResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('key')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('value')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-            ]);
+        return $form->schema([
+            Forms\Components\TextInput::make('key')
+                ->required()
+                ->maxLength(255),
+            Forms\Components\ColorPicker::make('value')->hidden(fn(Config $config) => $config->key !== 'theme_color'),
+            Forms\Components\FileUpload::make('value')
+                ->directory('configs/icon_images')
+                ->disk('public')
+                ->image()
+                ->imageEditor()
+                ->imageEditorAspectRatios(['1.1'])
+                ->hidden(fn(Config $config) => $config->key !== 'icon_image'),
+            Forms\Components\FileUpload::make('value')
+                ->directory('configs/logo_images')
+                ->disk('public')
+                ->image()
+                ->imageEditor()
+                ->hidden(fn(Config $config) => $config->key !== 'logo_image'),
+            Forms\Components\Textarea::make('value')
+                ->maxLength(65535)
+                ->hidden(
+                    fn(Config $config) => $config->key === 'theme_color' || $config->key === 'icon_image' || $config->key === 'logo_image'
+                ),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('key')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('value')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('key')->searchable(),
+                Tables\Columns\TextColumn::make('value')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -54,24 +68,16 @@ class ConfigResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
-            ]);
+            ->actions([Tables\Actions\EditAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])])
+            ->emptyStateActions([Tables\Actions\CreateAction::make()]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getPages(): array

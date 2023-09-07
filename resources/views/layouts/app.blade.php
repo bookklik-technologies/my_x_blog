@@ -26,6 +26,8 @@
     <meta property="og:image:width" content="256" />
     <meta property="og:image:height" content="256" />
 
+	<link rel="shortcut icon" href="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}" type="image/x-icon">
+
     <title>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}</title>
 
     <!-- Fonts -->
@@ -44,6 +46,13 @@
     @php
         $theme_color = $configs->firstWhere('key', 'theme_color') ? $configs->firstWhere('key', 'theme_color')->value : '#000000';
     @endphp
+
+    <!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="{{ $theme_color }}">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="{{ $theme_color }}">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="{{ $theme_color }}">
 
     <style>
         * {
@@ -75,7 +84,7 @@
                         $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null
                     @endphp
                     @if ($logo_image)
-                        <img src="{{ $logo_image }}" class="h-full" />
+                        <img src="{{ $logo_image }}" class="w-4/5" />
                     @else
                         <div>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}</div>
                     @endif
