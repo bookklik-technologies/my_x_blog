@@ -12,7 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Get;
+use Filament\Forms\Set;
 
 class ConfigResource extends Resource
 {
@@ -24,29 +24,41 @@ class ConfigResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form->schema([
-            Forms\Components\TextInput::make('key')
-                ->required()
-                ->maxLength(255),
-            Forms\Components\ColorPicker::make('value')->hidden(fn(Config $config) => $config->key !== 'theme_color'),
-            Forms\Components\FileUpload::make('value')
+        $key = isset($form->model->key) ? $form->model->key : null;
+
+        if($key === 'theme_color') {
+            $keyValueField = Forms\Components\ColorPicker::make('value')
+                ->columnSpan('full');
+        }
+        elseif($key === 'icon_image') {
+            $keyValueField = Forms\Components\FileUpload::make('value')
                 ->directory('configs/icon_images')
                 ->disk('public')
                 ->image()
                 ->imageEditor()
                 ->imageEditorAspectRatios(['1.1'])
-                ->hidden(fn(Config $config) => $config->key !== 'icon_image'),
-            Forms\Components\FileUpload::make('value')
+                ->columnSpan('full');
+        }
+        elseif($key === 'logo_image') {
+            $keyValueField = Forms\Components\FileUpload::make('value')
                 ->directory('configs/logo_images')
                 ->disk('public')
                 ->image()
                 ->imageEditor()
-                ->hidden(fn(Config $config) => $config->key !== 'logo_image'),
-            Forms\Components\Textarea::make('value')
+                ->columnSpan('full');
+        }
+        else {
+            $keyValueField = Forms\Components\Textarea::make('value')
                 ->maxLength(65535)
-                ->hidden(
-                    fn(Config $config) => $config->key === 'theme_color' || $config->key === 'icon_image' || $config->key === 'logo_image'
-                ),
+                ->columnSpan('full');
+        }
+
+        return $form->schema([
+            Forms\Components\TextInput::make('key')
+                ->required()
+                ->maxLength(255)
+                ->columnSpan('full'),
+            $keyValueField,
         ]);
     }
 
@@ -55,15 +67,10 @@ class ConfigResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('key')->searchable(),
-                Tables\Columns\TextColumn::make('value')->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('value')
+                    ->wrap()
+                    ->limit(50)
+                    ->searchable(),
             ])
             ->filters([
                 //

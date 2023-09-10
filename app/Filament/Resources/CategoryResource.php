@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -23,52 +25,36 @@ class CategoryResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-            ]);
+        return $form->schema([
+            Forms\Components\TextInput::make('name')
+                ->required()
+                ->maxLength(255)
+                ->live()
+                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+            Forms\Components\TextInput::make('slug')
+                ->required()
+                ->maxLength(255),
+            Forms\Components\Textarea::make('description')
+                ->maxLength(65535)
+                ->columnSpanFull(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-            ])
-            ->filters([
-                Tables\Filters\TrashedFilter::make(),
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
-            ]);
+            ->columns([Tables\Columns\TextColumn::make('name')->searchable(), Tables\Columns\TextColumn::make('slug')->searchable()])
+            ->filters([Tables\Filters\TrashedFilter::make()])
+            ->actions([Tables\Actions\EditAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make(), Tables\Actions\ForceDeleteBulkAction::make(), Tables\Actions\RestoreBulkAction::make()])])
+            ->emptyStateActions([Tables\Actions\CreateAction::make()]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getPages(): array
@@ -82,9 +68,6 @@ class CategoryResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        return parent::getEloquentQuery()->withoutGlobalScopes([SoftDeletingScope::class]);
     }
 }

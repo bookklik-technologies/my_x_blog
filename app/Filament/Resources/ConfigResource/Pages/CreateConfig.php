@@ -9,7 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateConfig extends CreateRecord
 {
     protected static string $resource = ConfigResource::class;
-    protected static bool $canCreateAnother = true;
+    protected static bool $canCreateAnother = false;
 
     protected function getRedirectUrl(): string
     {
