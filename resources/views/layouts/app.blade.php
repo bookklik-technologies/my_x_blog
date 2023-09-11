@@ -10,7 +10,7 @@
 
     @if (Route::currentRouteName() == 'blog.post')
         <meta name="description" content="{{ $post->description }}">
-        <meta name="keywords" content="{{ $post->keywords }}">
+        <meta name="keywords" content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null . $post->keywords }}">
         <meta property="og:title" content="{{ $post->title }}" />
         <meta property="og:description" content="{{ $post->description }}">
         <meta property="og:url" content="{{ route('blog.post', $post->slug) }}" />
