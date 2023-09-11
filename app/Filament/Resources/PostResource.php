@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Forms\Components;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
 
 class PostResource extends Resource
 {
@@ -31,6 +33,7 @@ class PostResource extends Resource
             Forms\Components\TextInput::make('title')
                 ->autofocus()
                 ->required()
+                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                 ->placeholder(__('Title')),
             Forms\Components\TextInput::make('slug')
                 ->autofocus()
