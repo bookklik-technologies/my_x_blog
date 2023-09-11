@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->string('keywords')->nullable();
             $table->text('body');
             $table->string('status')->default('draft')->nullable();
             $table->unsignedBigInteger('author_id');
