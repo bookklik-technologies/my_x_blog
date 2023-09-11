@@ -112,6 +112,13 @@ class InitConfigSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 15,
+                'key' => 'keywords',
+                'value' => 'My_x_blog, keywords,',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
