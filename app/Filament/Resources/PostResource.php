@@ -48,6 +48,9 @@ class PostResource extends Resource
                 ->autofocus()
                 ->required()
                 ->placeholder(__('Description')),
+            Forms\Components\TextInput::make('keywords')
+                ->maxLength(255)
+                ->columnSpanFull(),
             Forms\Components\RichEditor::make('body')
                 ->columnSpan('full')
                 ->autofocus()
