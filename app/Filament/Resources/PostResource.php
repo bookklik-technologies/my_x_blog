@@ -18,12 +18,13 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-document';
+    protected static ?string $navigationIcon = 'heroicon-m-book-open';
 
     protected static ?int $navigationSort = 1;
 
@@ -33,12 +34,14 @@ class PostResource extends Resource
             Forms\Components\TextInput::make('title')
                 ->autofocus()
                 ->required()
+                ->live(debounce: 500)
                 ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                 ->placeholder(__('Title')),
             Forms\Components\TextInput::make('slug')
                 ->autofocus()
+                ->prefix(URL::to('/page') . '/')
                 ->required()
-                ->rules(['alpha_dash'])
+                ->readonly()
                 ->placeholder(__('Slug')),
             Forms\Components\Textarea::make('description')
                 ->columnSpan('full')

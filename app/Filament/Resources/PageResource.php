@@ -15,12 +15,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 
 class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-document';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -35,10 +38,13 @@ class PageResource extends Resource
         return $form->schema([
             Forms\Components\TextInput::make('title')
                 ->required()
+                ->live(debounce: 500)
                 ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                 ->maxLength(255),
             Forms\Components\TextInput::make('slug')
+                ->prefix(URL::to('/page') . '/')
                 ->required()
+                ->readonly()
                 ->maxLength(255),
             Forms\Components\Textarea::make('description')
                 ->maxLength(65535)
