@@ -6,22 +6,22 @@
     <div class="w-full h-28 lg:h-0"></div>
 
     <style>
-        .blog-post-body p {
+        .xb-post-body p {
             margin-bottom: 1.25em;
         }
 
-        .blog-post-body pre {
+        .xb-post-body pre {
             padding: .75em;
             background: #f5f5f5;
             margin-bottom: 1.25em;
         }
 
-        .blog-post-body .attachment__caption {
+        .xb-post-body .attachment__caption {
             display: none;
         }
     </style>
 
-    <section class="px-6 lg:px-16 blog-post-body">
+    <section class="px-6 lg:px-16 xb-post-body">
         <div class="p-0 lg:px-24 mb-4 lg:mb-16">
             <div class="bg-gray-200 rounded-lg relative overflow-hidden mb-4 lg:mb-8" style="padding-top: 60%">
                 <img src="{{ url('storage/' . $post->featured_image) }}" class="w-full absolute top-0">
