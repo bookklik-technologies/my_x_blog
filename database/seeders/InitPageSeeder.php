@@ -13,7 +13,7 @@ class InitPageSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('page')->inser([
+        DB::table('pages')->insert([
             [
                 'id' => 1,
                 'title' => 'Page 1',
@@ -22,6 +22,7 @@ class InitPageSeeder extends Seeder
                 'keywords' => 'This is page 1',
                 'content' => 'This is page 1',
                 'category_id' => 4,
+                'author_id' => 1,
                 'status' => 'published',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -34,10 +35,11 @@ class InitPageSeeder extends Seeder
                 'keywords' => 'This is page 2',
                 'content' => 'This is page 2',
                 'category_id' => 5,
+                'author_id' => 1,
                 'status' => 'draft',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ])
+        ]);
     }
 }

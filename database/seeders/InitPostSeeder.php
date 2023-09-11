@@ -13,7 +13,7 @@ class InitPostSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('post')->insert([
+        DB::table('posts')->insert([
             [
                 'id' => 1,
                 'title' => 'Post 1',
@@ -22,6 +22,7 @@ class InitPostSeeder extends Seeder
                 'keywords' => 'This is post 1',
                 'body' => 'This is post 1',
                 'category_id' => 1,
+                'author_id' => 1,
                 'status' => 'published',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -34,6 +35,7 @@ class InitPostSeeder extends Seeder
                 'keywords' => 'This is post 2',
                 'body' => 'This is post 2',
                 'category_id' => 2,
+                'author_id' => 1,
                 'status' => 'draft',
                 'created_at' => now(),
                 'updated_at' => now(),
