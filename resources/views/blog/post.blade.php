@@ -24,7 +24,9 @@
     <section class="px-6 lg:px-16 xb-post-body">
         <div class="p-0 lg:px-24 mb-4 lg:mb-16">
             <div class="bg-gray-200 rounded-lg relative overflow-hidden mb-4 lg:mb-8" style="padding-top: 60%">
-                <img src="{{ url('storage/' . $post->featured_image) }}" class="w-full absolute top-0">
+                @if($post->featured_image != null || $post->featured_image != '')
+                    <img src="{{ url('storage/' . $post->featured_image) }}" class="w-full absolute top-0">
+                @endif
             </div>
             <h1 class="text-2xl lg:text-6xl capitalize font-bold mb-2 lg:block">
                 {{ $post->title }}

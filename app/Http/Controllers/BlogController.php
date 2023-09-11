@@ -13,6 +13,7 @@ class BlogController extends Controller
     {
         $posts = Post::take(5)
             ->latest()
+            ->where('status', 'published')
             ->get();
 
         return view('blog.home', ['posts' => $posts]);

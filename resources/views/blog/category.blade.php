@@ -13,7 +13,9 @@
             <a href="{{ route('blog.post', $post->slug) }}">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 lg:mb-16 hover:opacity-80">
                     <div class="bg-gray-200 rounded-lg relative overflow-hidden" style="padding-top: 60%">
-                        <img src="{{ url('storage/' . $post->featured_image) }}" class="w-full absolute top-0">
+                        @if($post->featured_image != null || $post->featured_image != '')
+                            <img src="{{ url('storage/' . $post->featured_image) }}" class="w-full absolute top-0">
+                        @endif
                     </div>
                     <div class="left-0 w-full lg:p-4 flex flex-col">
                         <h1 class="text-2xl lg:text-5xl font-bold lg:mb-2">{{ $post->title }}</h1>
