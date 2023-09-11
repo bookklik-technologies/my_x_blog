@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Page;
 use App\Models\Category;
 
 class BlogController extends Controller
@@ -29,6 +30,13 @@ class BlogController extends Controller
         $posts = Post::latest()->paginate(10);
 
         return view('blog.posts', ['posts' => $posts]);
+    }
+
+    public function page($slug)
+    {
+        $page = Page::where('slug', $slug)->firstOrFail();
+
+        return view('blog.page', ['page' => $page]);
     }
 
     public function category($slug)

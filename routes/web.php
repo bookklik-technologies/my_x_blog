@@ -21,6 +21,7 @@ Route::get('/posts', [BlogController::class, 'posts'])->name('blog.posts');
 Route::get('/category/{slug?}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/categories', [BlogController::class, 'categories'])->name('blog.categories');
 Route::get('/about', [BlogController::class, 'about'])->name('blog.about');
+Route::get('/page/{slug?}', [BlogController::class, 'page'])->name('blog.page');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

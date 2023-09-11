@@ -5,32 +5,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="author"
+        content="{{ $configs->firstWhere('key', 'author') ? $configs->firstWhere('key', 'author')->value : null }}">
 
-    <meta name="description" content="{{ $configs->firstWhere('key', 'description') ? $configs->firstWhere('key', 'description')->value : null }}">
-    <meta name="author" content="{{ $configs->firstWhere('key', 'author') ? $configs->firstWhere('key', 'author')->value : null }}">
-    <meta name="keywords" content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null }}">
-
-    <!--Open Graph Metatag-->
-    <meta property="og:type" content="website" />
-    @if ( Route::currentRouteName() == "blog.post" )
-    <meta property="og:title" content="{{ $post->title }}" />
-    <meta property="og:description" content="{{ $post->description }}">
-    <meta property="og:url" content="{{ route('blog.post', $post->slug) }}" />
-    <meta property="og:image" content="{{ url('storage/' . $post->featured_image) }}" />
+    @if (Route::currentRouteName() == 'blog.post')
+        <meta name="description" content="{{ $post->description }}">
+        <meta name="keywords" content="{{ $post->keywords }}">
+        <meta property="og:title" content="{{ $post->title }}" />
+        <meta property="og:description" content="{{ $post->description }}">
+        <meta property="og:url" content="{{ route('blog.post', $post->slug) }}" />
+        <meta property="og:image" content="{{ url('storage/' . $post->featured_image) }}" />
     @else
-    <meta property="og:title" content="{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}" />
-    <meta property="og:description" content="{{ $configs->firstWhere('key', 'description') ? $configs->firstWhere('key', 'description')->value : null }}">
-    <meta property="og:url" content="{{ url()->full() }}" />
-    <meta property="og:image" content="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}" />
+        <meta name="description"
+            content="{{ $configs->firstWhere('key', 'description') ? $configs->firstWhere('key', 'description')->value : null }} @yield('description')">
+        <meta name="keywords"
+            content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null }} @yield('keywords')">
+        <meta property="og:title"
+            content="{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}" />
+        <meta property="og:description"
+            content="{{ $configs->firstWhere('key', 'description') ? $configs->firstWhere('key', 'description')->value : null }}">
+        <meta property="og:url" content="{{ url()->full() }}" />
+        <meta property="og:image"
+            content="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}" />
     @endif
+    <meta property="og:type" content="website" />
     <meta property="og:image:width" content="256" />
     <meta property="og:image:height" content="256" />
 
-	<link rel="shortcut icon" href="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}" type="image/x-icon">
+    <link rel="shortcut icon"
+        href="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}"
+        type="image/x-icon">
 
-    <title>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'My_x_Blog') }}</title>
+    <title>
+        @hasSection('title')
+            @yield('title') |
+        @endif
+        {{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'My_x_Blog') }}
+    </title>
 
     <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&family=Oxanium&display=swap" rel="stylesheet">
@@ -48,11 +62,11 @@
     @endphp
 
     <!-- Chrome, Firefox OS and Opera -->
-	<meta name="theme-color" content="{{ $theme_color }}">
-	<!-- Windows Phone -->
-	<meta name="msapplication-navbutton-color" content="{{ $theme_color }}">
-	<!-- iOS Safari -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="{{ $theme_color }}">
+    <meta name="theme-color" content="{{ $theme_color }}">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="{{ $theme_color }}">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{ $theme_color }}">
 
     <style>
         * {
@@ -81,12 +95,14 @@
             <div class="h-12 flex items-center">
                 <a href="{{ route('blog.home') }}">
                     @php
-                        $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null
+                        $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null;
                     @endphp
                     @if ($logo_image)
                         <img src="{{ $logo_image }}" class="w-4/5" />
                     @else
-                        <div>{{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}</div>
+                        <div>
+                            {{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}
+                        </div>
                     @endif
                 </a>
                 <div class="flex-grow lg:hidden"></div>
@@ -100,8 +116,10 @@
                 </div>
             </div>
             <div class="flex-grow hidden lg:flex justify-end flex-col lg:flex-row pt-4 lg:pt-0" id="mobile_nav_body">
-                <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">All Posts</a>
-                <a href="{{ route('blog.categories') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
+                <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">All
+                    Posts</a>
+                <a href="{{ route('blog.categories') }}"
+                    class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
                 <a href="{{ route('blog.about') }}"
                     class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
                     Us</a>
@@ -140,7 +158,8 @@
             {{ $configs->firstWhere('key', 'footer') ? $configs->firstWhere('key', 'footer')->value : 'My_x_Blog 2023' }}
         </div>
         <div class="flex justify-center">
-            <a href="#" class="flex items-center justify-center w-8 h-8 text-sm lg:ml-4 rounded-md xb-bg-accent text-white">
+            <a href="#"
+                class="flex items-center justify-center w-8 h-8 text-sm lg:ml-4 rounded-md xb-bg-accent text-white">
                 <i class="fas fa-arrow-up"></i>
             </a>
         </div>

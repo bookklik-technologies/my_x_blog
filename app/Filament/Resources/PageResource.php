@@ -28,9 +28,9 @@ class PageResource extends Resource
         // $editorType = isset($form->model->editor_type_id) ? $form->model->editor_type_id : Page::EDITOR_TYPE_RICHTEXT;
 
         $editorField = Forms\Components\RichEditor::make('content')
-                ->fileAttachmentsDisk('public')
-                ->fileAttachmentsDirectory('pages/images')
-                ->columnSpanFull();
+            ->fileAttachmentsDisk('public')
+            ->fileAttachmentsDirectory('pages/images')
+            ->columnSpanFull();
 
         return $form->schema([
             Forms\Components\TextInput::make('title')
@@ -88,10 +88,18 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable(),
-                Tables\Columns\TextColumn::make('status')->sortable(),
-                Tables\Columns\TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->limit(50)
+                    ->wrap(),
+                Tables\Columns\TextColumn::make('status')
+                    ->sortable()
+                    ->badge()
+                    ->color(
+                        fn(string $state): string => match ($state) {
+                            'draft' => 'gray',
+                            'published' => 'success',
+                        },
+                    ),
             ])
             ->filters([Tables\Filters\TrashedFilter::make()])
             ->actions([Tables\Actions\EditAction::make()])
