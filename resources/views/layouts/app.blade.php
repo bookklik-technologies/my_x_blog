@@ -10,7 +10,8 @@
 
     @if (Route::currentRouteName() == 'blog.post')
         <meta name="description" content="{{ $post->description }}">
-        <meta name="keywords" content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null . $post->keywords }}">
+        <meta name="keywords"
+            content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null . $post->keywords }}">
         <meta property="og:title" content="{{ $post->title }}" />
         <meta property="og:description" content="{{ $post->description }}">
         <meta property="og:url" content="{{ route('blog.post', $post->slug) }}" />
@@ -32,9 +33,11 @@
     <meta property="og:image:width" content="256" />
     <meta property="og:image:height" content="256" />
 
-    <link rel="shortcut icon"
-        href="{{ $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null }}"
-        type="image/x-icon">
+    @php
+        $icon_image = $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null;
+        $icon_image = $icon_image && !file_exists($icon_image) ? url('image/my_x_blog_icon.svg') : $icon_image;
+    @endphp
+    <link rel="shortcut icon" href="{{ $icon_image }}" type="image/x-icon">
 
     <title>
         @hasSection('title')
@@ -96,12 +99,13 @@
                 <a href="{{ route('blog.home') }}">
                     @php
                         $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null;
+                        $logo_image = $logo_image && !file_exists($logo_image) ? url('image/my_x_blog_logo.png') : $logo_image;
                     @endphp
                     @if ($logo_image)
-                        <img src="{{ $logo_image }}" class="w-4/5" />
+                        <img src="{{ $logo_image }}" class="h-12" />
                     @else
                         <div>
-                            {{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'xBlog') }}
+                            {{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'My_x_Blog') }}
                         </div>
                     @endif
                 </a>
