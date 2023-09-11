@@ -20,21 +20,21 @@ class BlogController extends Controller
 
     public function post($slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::where('slug', $slug)->where('status', 'published')->firstOrFail();
 
         return view('blog.post', ['post' => $post]);
     }
 
     public function posts()
     {
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::latest()->where('status', 'published')->paginate(10);
 
         return view('blog.posts', ['posts' => $posts]);
     }
 
     public function page($slug)
     {
-        $page = Page::where('slug', $slug)->firstOrFail();
+        $page = Page::where('slug', $slug)->where('status', 'published')->firstOrFail();
 
         return view('blog.page', ['page' => $page]);
     }
