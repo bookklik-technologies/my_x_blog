@@ -2,7 +2,7 @@
 
 ## My_x_Blog
 
-Minimal blog project made with Laravel.
+Minimal blog project made with Laravel 10 & Fillament 3
 
 ### Getting start
 After setting up your .env file, run the following:
