@@ -21,11 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        try {
-            $configs = Config::all();
-        } catch(Exception $e) {
-            $config = null;
-        }
+        $configs = Config::all();
         View::share('configs', $configs);
     }
 }
