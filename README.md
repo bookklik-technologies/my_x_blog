@@ -8,9 +8,10 @@ Minimal blog project made with Laravel 10 & Fillament 3
 After setting up your .env file, run the following:
 ```
 composer install
-npm install
 php artisan migrate --seed
 php artisan storage:link
+php artisan key:generate
+npm run dev
 ```
 
 ### Default user
