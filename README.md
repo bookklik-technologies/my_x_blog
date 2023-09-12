@@ -11,7 +11,6 @@ composer install
 npm install
 php artisan migrate --seed
 php artisan storage:link
-
 ```
 
 ### Default user
