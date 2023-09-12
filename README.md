@@ -4,8 +4,22 @@
 
 Minimal blog project made with Laravel.
 
+### Getting start
+After setting up your .env file, run the following:
 ```
-
+composer install
+npm install
 php artisan migrate --seed
+php artisan storage:link
 
 ```
+
+### Default user
+The admin user seeded with some initial dummy data
+```
+email: admin@admin.com
+password: password
+```
+
+### Configs
+List of preset configs that you can use to customize the blog
