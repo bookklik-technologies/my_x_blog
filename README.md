@@ -6,6 +6,12 @@ Minimal blog project made with Laravel 10 & Fillament 3
 
 ### Getting start
 
+Clone from the repo
+
+```
+git clone https://github.com/bookklik-technologies/my_x_blog
+```
+
 After setting up your .env file, run the following:
 
 ```
