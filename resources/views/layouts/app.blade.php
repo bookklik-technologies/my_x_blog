@@ -91,83 +91,16 @@
 </head>
 
 <body class="antialiased bg-white">
-    <!-- Top Bar Nav -->
-    <nav class="fixed w-full z-50 p-6">
-        <div
-            class="p-2 w-full lg:mx-auto lg:max-w-screen-xl rounded-lg flex flex-col lg:flex-row bg-white bg-opacity-80 backdrop-filter backdrop-blur">
-            <div class="h-12 flex items-center">
-                <a href="{{ route('blog.home') }}">
-                    @php
-                        $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null;
-                        $logo_image = $logo_image && !file_exists($logo_image) ? url('image/my_x_blog_logo.png') : $logo_image;
-                    @endphp
-                    @if ($logo_image)
-                        <img src="{{ $logo_image }}" class="h-12" />
-                    @else
-                        <div>
-                            {{ $configs->firstWhere('key', 'name') ? $configs->firstWhere('key', 'name')->value : config('app.name', 'My_x_Blog') }}
-                        </div>
-                    @endif
-                </a>
-                <div class="flex-grow lg:hidden"></div>
-                <div class="w-12 flex items-center justify-center lg:hidden" onclick="open_mobile_nav()">
-                    <span id="mobile_nav_icon_close">
-                        <i class="fas fa-bars"></i>
-                    </span>
-                    <span id="mobile_nav_icon_open" class="hidden">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </div>
-            </div>
-            <div class="flex-grow hidden lg:flex justify-end flex-col lg:flex-row pt-4 lg:pt-0" id="mobile_nav_body">
-                <a href="{{ route('blog.posts') }}" class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">All
-                    Posts</a>
-                <a href="{{ route('blog.categories') }}"
-                    class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
-                <a href="{{ route('blog.about') }}"
-                    class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
-                    Us</a>
-            </div>
-        </div>
-    </nav>
-    <script>
-        function open_mobile_nav() {
-            $("#mobile_nav_body").slideToggle("hidden");
-            $("#mobile_nav_icon_close").toggleClass("hidden");
-            $("#mobile_nav_icon_open").toggleClass("hidden");
-        }
-    </script>
+
+    @include('blog.sections.navbar')
 
     <!-- Page Content -->
     <main class="lg:max-w-screen-xl mx-auto pt-0 lg:pt-28">
         @yield('content')
     </main>
 
-    <footer class="flex flex-col lg:flex-row lg:max-w-screen-xl mx-auto pt-4 px-6 lg:px-16 mb-16">
-        <div class="flex justify-center">
-            <a href="{{ $configs->firstWhere('key', 'link_instagram') ? $configs->firstWhere('key', 'link_instagram')->value : '#' }}"
-                class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="{{ $configs->firstWhere('key', 'link_twitter') ? $configs->firstWhere('key', 'link_twitter')->value : '#' }}"
-                class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="{{ $configs->firstWhere('key', 'link_facebook') ? $configs->firstWhere('key', 'link_facebook')->value : '#' }}"
-                class="bg-gray-200 rounded-md flex items-center justify-center w-8 h-8 text-gray-600 text-sm mr-2">
-                <i class="fab fa-facebook"></i>
-            </a>
-        </div>
-        <div class="flex-grow h-8 flex items-center justify-center lg:justify-end font-semibold">
-            {{ $configs->firstWhere('key', 'footer') ? $configs->firstWhere('key', 'footer')->value : 'My_x_Blog 2023' }}
-        </div>
-        <div class="flex justify-center">
-            <a href="#"
-                class="flex items-center justify-center w-8 h-8 text-sm lg:ml-4 rounded-md xb-bg-accent text-white">
-                <i class="fas fa-arrow-up"></i>
-            </a>
-        </div>
-    </footer>
+    @include('blog.sections.footer')
+
 </body>
 
 </html>
