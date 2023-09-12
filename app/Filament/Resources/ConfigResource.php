@@ -47,6 +47,22 @@ class ConfigResource extends Resource
                 ->imageEditor()
                 ->columnSpan('full');
         }
+        elseif($key === 'hero_image') {
+            $keyValueField = Forms\Components\FileUpload::make('value')
+                ->directory('configs/hero_images')
+                ->disk('public')
+                ->image()
+                ->imageEditor()
+                ->columnSpan('full');
+        }
+        elseif($key === 'hero_bg_image') {
+            $keyValueField = Forms\Components\FileUpload::make('value')
+                ->directory('configs/hero_bg_image')
+                ->disk('public')
+                ->image()
+                ->imageEditor()
+                ->columnSpan('full');
+        }
         else {
             $keyValueField = Forms\Components\Textarea::make('value')
                 ->maxLength(65535)
