@@ -1,4 +1,4 @@
-[![My_x_Blog](https://raw.githubusercontent.com/a-hakim/kxv2-blog/main/public/image/my_x_blog_logo.png?token=GHSAT0AAAAAACGXUX724J2MNKGPW4SIUWMEZH7JKGA)](https://github.com/a-hakim)
+[![My_x_Blog](https://drive.google.com/file/d/1FPvI4vOOsGEy-zA7DN3_EEOdD-j4DBWs/preview)](https://github.com/a-hakim)
 
 ## My_x_Blog
 
