@@ -4,8 +4,8 @@
 
 kxv2 blog project 2023
 
-'''
+```
 
 php artisan migrate --seed
 
-'''
+```
