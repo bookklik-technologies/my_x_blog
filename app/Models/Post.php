@@ -8,19 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory,
-        SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'description',
-        'body',
-        'status',
-        'author_id',
-        'category_id',
-        'featured_image',
+    protected $casts = [
+        'keywords' => 'array',
     ];
+
+    protected $fillable = ['title', 'slug', 'description', 'keywords', 'body', 'status', 'author_id', 'category_id', 'featured_image'];
 
     public function author()
     {
@@ -39,7 +33,8 @@ class Post extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('title', 'like', '%' . $search . '%')
+        return $query
+            ->where('title', 'like', '%' . $search . '%')
             ->orWhere('description', 'like', '%' . $search . '%')
             ->orWhere('body', 'like', '%' . $search . '%');
     }

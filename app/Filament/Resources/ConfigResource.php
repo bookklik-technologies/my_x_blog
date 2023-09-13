@@ -63,6 +63,11 @@ class ConfigResource extends Resource
                 ->imageEditor()
                 ->columnSpan('full');
         }
+        elseif($key === 'keywords') {
+            $keyValueField = Forms\Components\TagsInput::make('value')
+                ->separator(',')
+                ->columnSpanFull();
+        }
         else {
             $keyValueField = Forms\Components\Textarea::make('value')
                 ->maxLength(65535)
