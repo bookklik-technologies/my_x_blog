@@ -23,17 +23,28 @@
         }
     </style>
 
-    <section class="px-6 lg:px-16 xb-page-content">
-        <h1 class="text-2xl lg:text-6xl capitalize font-bold mb-2 lg:block">
+    <section class="px-6 lg:px-16">
+        <div class="flex font-semibold mb-2">
+            <p class="mb-0"><a href="{{ route('blog.category', $page->category->slug) }}"
+                    class="xb-text-accent">{{ $page->category->name }}</a></p>
+            <div class="flex-grow"></div>
+            <p class="mb-0">{{ $page->created_at->format('d M Y') }}</p>
+        </div>
+        <h1 class="text-2xl lg:text-6xl capitalize font-bold lg:block mb-2">
             {{ $page->title }}
         </h1>
-        <div class="flex text-lg font-semibold mb-2 lg:mb-6">
-            <p>{{ $page->created_at->format('d M Y') }}</p>
-            <div class="flex-grow"></div>
-            <p><a href="{{ route('blog.category', $page->category->slug) }}"
-                    class="xb-text-accent">{{ $page->category->name }}</a></p>
+        <div class="flex mb-4 lg:mb-8">
+            @php
+                $keywords = explode(',', $page->keywords);
+            @endphp
+            @foreach ($keywords as $keyword)
+                <a href="#" class="hover:opacity-80">
+                    <span class="bg-gray-200 text-sm px-2 py-1 rounded-full mr-2">{{ $keyword }}</span>
+                </a>
+            @endforeach
         </div>
-        <div class="mb-2 lg:mb-4 leading-normal">
+
+        <div class="mb-2 lg:mb-4 leading-normal xb-page-content">
             @if (isset($page->content))
                 <p>{!! html_entity_decode($page->content) !!}</p>
             @else
