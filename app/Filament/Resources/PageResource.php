@@ -40,6 +40,7 @@ class PageResource extends Resource
                 ->required()
                 ->live(debounce: 500)
                 ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                ->placeholder(__('Title'))
                 ->maxLength(255),
             Forms\Components\TextInput::make('slug')
                 ->prefix(URL::to('/page') . '/')
@@ -48,9 +49,11 @@ class PageResource extends Resource
                 ->maxLength(255),
             Forms\Components\Textarea::make('description')
                 ->maxLength(65535)
+                ->placeholder(__('Description'))
                 ->columnSpanFull(),
-            Forms\Components\TextInput::make('keywords')
-                ->maxLength(255)
+            Forms\Components\TagsInput::make('keywords')
+                ->separator(',')
+                ->placeholder(__('Keywords'))
                 ->columnSpanFull(),
             $editorField,
             Forms\Components\Select::make('editor_type_id')
@@ -97,6 +100,9 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->limit(50)
                     ->wrap(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->url(fn(Page $page) => URL::to('/page/' . $page->slug))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->sortable()
                     ->badge()

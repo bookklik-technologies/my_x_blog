@@ -18,6 +18,10 @@ class Page extends Model
     public const EDITOR_TYPE_EDITORJS = 2;
     public const EDITOR_TYPE_GRAPEJS = 3;
 
+    protected $casts = [
+        'keywords' => 'array',
+    ];
+
     protected $fillable = [
         'title',
         'slug',
