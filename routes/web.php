@@ -21,6 +21,7 @@ Route::get('/post/{slug?}', [BlogController::class, 'post'])->name('blog.post');
 Route::get('/posts', [BlogController::class, 'posts'])->name('blog.posts');
 Route::get('/category/{slug?}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/categories', [BlogController::class, 'categories'])->name('blog.categories');
+Route::get('/keyword/{key?}', [BlogController::class, 'keyword'])->name('blog.keyword');
 Route::get('/about', [BlogController::class, 'about'])->name('blog.about');
 Route::get('/page/{slug?}', [BlogController::class, 'page'])->name('blog.page');
 

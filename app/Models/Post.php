@@ -40,6 +40,11 @@ class Post extends Model
             ->orWhere('body', 'like', '%' . $search . '%');
     }
 
+    public function scopeKeyword($query, $keyword)
+    {
+        return $query->where('keywords', 'like', '%' . $keyword . '%');
+    }
+
     public function scopeSort($query, $sort)
     {
         return $query->orderBy($sort['column'], $sort['order']);
