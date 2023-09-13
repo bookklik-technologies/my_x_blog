@@ -35,6 +35,7 @@ class Post extends Model
     {
         return $query
             ->where('title', 'like', '%' . $search . '%')
+            ->orWhere('keywords', 'like', '%' . $search . '%')
             ->orWhere('description', 'like', '%' . $search . '%')
             ->orWhere('body', 'like', '%' . $search . '%');
     }

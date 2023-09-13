@@ -33,6 +33,18 @@ class BlogController extends Controller
         return view('blog.posts', ['posts' => $posts]);
     }
 
+    public function search(Request $request)
+    {
+        $posts = Post::search($request->search)
+            ->latest()
+            ->where('status', 'published')
+            ->paginate(10);
+
+        $keyword = $request->search ? $request->search : null;
+
+        return view('blog.posts', ['posts' => $posts, 'keyword' => $keyword]);
+    }
+
     public function page($slug)
     {
         $page = Page::where('slug', $slug)->where('status', 'published')->firstOrFail();
