@@ -57,39 +57,41 @@
         </div>
     </section>
 
-    @if ($post->comments->count() > 0)
+    <section class="px-6 lg:px-16">
+        <div class="p-0 lg:px-24 mb-4 lg:mb-16">
 
-        <section class="px-6 lg:px-16">
-            <div class="p-0 lg:px-24 mb-4 lg:mb-16">
+            <form action="{{ route('blog.comments.submit') }}" method="post" class="flex bg-gray-200 p-2 rounded-lg flex-col mb-2">
+                <h2 class="font-bold mb-2"><i class="fas fa-comments mr-2"></i>Leave a comment</h2>
+                @csrf
+                <input type="text" placeholder="Your name"
+                    class="w-full h-12 border border-gray-200 px-2 rounded-lg mb-2" name="name" required>
+                <textarea name="body" placeholder="Your comment" class="w-full border border-gray-200 px-2 py-2 rounded-lg mb-2" rows="3" required></textarea>
+                <input type="hidden" name="table_name" value="posts" required>
+                <input type="hidden" name="table_row_id" value="{{ $post->id }}" required>
+                <div class="flex justify-end">
+                    <button
+                        class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center h-12 w-full lg:max-w-fit"><i
+                            class="fas fa-paper-plane mr-2"></i>Submit</button>
+                </div>
+            </form>
 
-                <form action="" method="post" class="flex bg-gray-200 p-2 rounded-lg flex-col mb-2">
-                    <h2 class="font-bold mb-2">Leave a comment</h2>
-                    <input type="text" placeholder="Your name"
-                        class="w-full h-12 border border-gray-200 px-2 rounded-lg mb-2" name="name">
-                    <textarea placeholder="Your comment" class="w-full border border-gray-200 px-2 py-2 rounded-lg mb-2" rows="3"></textarea>
-                    <div class="flex justify-end">
-                        <button class="xb-bg-accent hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Submit</button>
-                    </div>
-                </form>
-
-                <div class="flex bg-gray-200 p-2 rounded-lg">
-
+            @if ($post->comments->count() > 0)
+                <div class="grid grid-rows-1 gap-2 bg-gray-200 p-2 rounded-lg">
                     @foreach ($post->comments as $comment)
-                        <div class="flex flex-col px-1">
-                            <div class="flex-grow">
-                                <h2 class="font-bold">{{ $comment->name }}</h2>
+                        <div class="flex flex-col px-1 w-full">
+                            <div class="flex justify-between">
+                                <h2 class="font-bold text-sm">{{ $comment->name }}</h2>
+                                <p class="text-gray-500 text-sm">{{ $comment->created_at->format('d M Y') }}</p>
                             </div>
-                            <div class="flex-grow-0">
+                            <div>
                                 {{ $comment->body }}
                             </div>
                         </div>
                     @endforeach
                 </div>
+            @endif
 
-
-            </div>
-        </section>
-
-    @endif
+        </div>
+    </section>
 
 @endsection
