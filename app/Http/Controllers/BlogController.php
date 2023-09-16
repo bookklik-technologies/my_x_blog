@@ -81,6 +81,20 @@ class BlogController extends Controller
         return view('blog.categories', ['categories' => $categories]);
     }
 
+    public function commentSubmit(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'body' => 'required',
+            'table_name' => 'required',
+            'table_row_id' => 'required',
+        ]);
+
+        $comment = Comment::create($request->all());
+
+        return redirect()->back()->with('success', 'Comment submitted successfully.');
+    }
+
     public function about()
     {
         return view('blog.about');

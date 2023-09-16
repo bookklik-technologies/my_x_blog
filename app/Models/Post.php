@@ -26,6 +26,11 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'table_row_id')->where('table_name', 'posts');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
