@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('category_id');
             $table->string('featured_image')->nullable();
+            $table->boolean('comments_enabled')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

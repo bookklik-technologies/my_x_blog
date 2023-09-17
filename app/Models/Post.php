@@ -12,9 +12,10 @@ class Post extends Model
 
     protected $casts = [
         'keywords' => 'array',
+        'comments_enabled' => 'boolean',
     ];
 
-    protected $fillable = ['title', 'slug', 'description', 'keywords', 'body', 'status', 'author_id', 'category_id', 'featured_image'];
+    protected $fillable = ['title', 'slug', 'description', 'keywords', 'body', 'status', 'author_id', 'category_id', 'featured_image', 'comments_enabled'];
 
     public function author()
     {

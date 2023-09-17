@@ -53,4 +53,43 @@
         </div>
     </section>
 
+    @if ($page->comments_enabled == 1)
+        <section class="px-6 lg:px-16">
+
+            <form action="{{ route('blog.comments.submit') }}" method="post"
+                class="flex bg-gray-200 p-2 rounded-lg flex-col mb-2">
+                <h2 class="font-bold mb-2"><i class="fas fa-comments mr-2"></i>Leave a comment</h2>
+                @csrf
+                <input type="text" placeholder="Your name"
+                    class="w-full h-12 border border-gray-200 px-2 rounded-lg mb-2" name="name" required>
+                <textarea name="body" placeholder="Your comment" class="w-full border border-gray-200 px-2 py-2 rounded-lg mb-2"
+                    rows="3" required></textarea>
+                <input type="hidden" name="table_name" value="pages" required>
+                <input type="hidden" name="table_row_id" value="{{ $page->id }}" required>
+                <div class="flex justify-end">
+                    <button
+                        class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center h-12 w-full lg:max-w-fit"><i
+                            class="fas fa-paper-plane mr-2"></i>Submit</button>
+                </div>
+            </form>
+
+            @if ($page->comments)
+                <div class="grid grid-rows-1 gap-2 bg-gray-200 p-2 rounded-lg">
+                    @foreach ($page->comments as $comment)
+                        <div class="flex flex-col px-1 w-full">
+                            <div class="flex justify-between">
+                                <h2 class="font-bold text-sm">{{ $comment->name }}</h2>
+                                <p class="text-gray-500 text-sm">{{ $comment->created_at->format('d M Y') }}</p>
+                            </div>
+                            <div>
+                                {{ $comment->body }}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+        </section>
+    @endif
+
 @endsection

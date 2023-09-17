@@ -20,6 +20,7 @@ class Page extends Model
 
     protected $casts = [
         'keywords' => 'array',
+        'comments_enabled' => 'boolean'
     ];
 
     protected $fillable = [
@@ -32,6 +33,7 @@ class Page extends Model
         'status',
         'author_id',
         'category_id',
+        'comments_enabled',
     ];
 
     public function author()
