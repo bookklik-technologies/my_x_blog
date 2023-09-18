@@ -6,7 +6,7 @@
             <a href="{{ route('blog.home') }}">
                 @php
                     $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null;
-                    $logo_image = $logo_image && !file_exists($logo_image) ? url('image/my_x_blog_logo.png') : $logo_image;
+                    $logo_image = ($logo_image == null || $logo_image == url('storage/')) ? url('image/my_x_blog_logo.png') : $logo_image;
                 @endphp
                 @if ($logo_image)
                     <img src="{{ $logo_image }}" class="h-12" />

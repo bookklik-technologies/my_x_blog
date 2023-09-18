@@ -35,7 +35,7 @@
 
     @php
         $icon_image = $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null;
-        $icon_image = $icon_image && !file_exists($icon_image) ? url('image/my_x_blog_icon.svg') : $icon_image;
+        $icon_image = ($icon_image == null || $icon_image == url('storage/')) ? url('image/my_x_blog_icon.svg') : $icon_image;
     @endphp
     <link rel="shortcut icon" href="{{ $icon_image }}" type="image/x-icon">
 
