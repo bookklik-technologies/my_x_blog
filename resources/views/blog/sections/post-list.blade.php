@@ -1,10 +1,12 @@
 @foreach ($posts as $post)
     <a href="{{ route('blog.post', $post->slug) }}">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8 lg:mb-16 hover:opacity-80">
-            <div class="bg-gray-200 rounded-lg relative overflow-hidden" style="padding-top: 60%">
-                @if ($post->featured_image != null || $post->featured_image != '')
-                    <img src="{{ url('storage/' . $post->featured_image) }}" class="w-full absolute top-0">
-                @endif
+            <div class="bg-gray-200 rounded-lg relative overflow-hidden"
+                style="padding-top: 60%;
+                    @if ($post->featured_image != null || $post->featured_image != '') background-image: url('{{ url('storage/' . $post->featured_image) }}'); @endif
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;">
             </div>
             <div class="left-0 w-full lg:p-4 flex flex-col">
                 <div class="flex text-sm">
