@@ -4,9 +4,16 @@
 
 @section('content')
 
-    @include('blog.sections.hero')
+    @php
+        $home_hero = $configs->firstWhere('key', 'home_hero') ? $configs->firstWhere('key', 'home_hero')->value : null;
+    @endphp
 
-    <div class="w-full h-8 lg:h-16"></div>
+    @if ($home_hero == 'true')
+        @include('blog.sections.hero')
+        <div class="w-full h-8 lg:h-16"></div>
+    @else
+        <div class="w-full h-28 lg:h-0"></div>
+    @endif
 
     <section class="px-6 lg:px-16">
 
