@@ -49,9 +49,10 @@ List of preset configs that you can use to customize the blog
 | link_twitter   | https://twitter.com         |
 | link_instagram | https://instagram.com       |
 | link_linkedin  | https://linkedin.com        |
-| color_theme    | #ff6600                     |
+| theme_color    | #ff6600                     |
 | logo_image     | null                        |
 | icon_image     | null                        |
 | keywords       | My_x_blog, keywords,        |
 | hero_image     | null                        |
 | hero_bg_image  | null                        |
+| home_hero      | null                        |
