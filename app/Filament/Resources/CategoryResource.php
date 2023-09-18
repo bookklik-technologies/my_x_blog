@@ -29,10 +29,11 @@ class CategoryResource extends Resource
             Forms\Components\TextInput::make('name')
                 ->required()
                 ->maxLength(255)
-                ->live()
+                ->live(debounce: 500)
                 ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
             Forms\Components\TextInput::make('slug')
                 ->required()
+                ->readonly()
                 ->maxLength(255),
             Forms\Components\Textarea::make('description')
                 ->maxLength(65535)
