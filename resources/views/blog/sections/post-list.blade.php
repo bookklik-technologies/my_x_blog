@@ -13,13 +13,13 @@
                     <p class="mr-4"><i class="fas fa-clock mr-2"></i>{{ $post->created_at->format('d M Y') }}</p>
                     <p><i class="fas fa-layer-group mr-2"></i>{{ $post->category->name }}</p>
                 </div>
-                <h1 class="text-2xl lg:text-5xl font-bold lg:my-1">{{ $post->title }}</h1>
+                <h1 class="text-2xl lg:text-5xl font-bold lg:my-2">{{ $post->title }}</h1>
                 <div class="mb-2 lg:mb-6">
                     @php
                         $keywords = explode(',', $post->keywords);
                     @endphp
                     @foreach ($keywords as $keyword)
-                        <span class="bg-gray-200 text-sm px-2 py-1 rounded-full mr-1">{{ $keyword }}</span>
+                        {{ $keyword }},
                     @endforeach
                 </div>
                 <p>{{ $post->description }}</p>
