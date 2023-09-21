@@ -117,10 +117,19 @@
         <div class="rounded-lg relative overflow-hidden mb-4 lg:mb-8 bg-gray-200"
             style="padding-top: 60%;
             @if ($post->featured_image != null || $post->featured_image != '') background-image: url('{{ url('storage/' . $post->featured_image) }}'); @endif
-            background-size: contain;
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;">
+            <div class="rounded-lg relative top-0 left-0 overflow-hidden bg-white backdrop-filter backdrop-blur bg-opacity-10 w-full h-full"
+                style="padding-top: 60%;
+                @if ($post->featured_image != null || $post->featured_image != '') background-image: url('{{ url('storage/' . $post->featured_image) }}'); @endif
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                position:absolute;">
+            </div>
         </div>
+
         <div class="flex font-semibold">
             <p class="mb-0"><a href="{{ route('blog.category', $post->category->slug) }}"
                     class="xb-text-accent">{{ $post->category->name }}</a></p>
