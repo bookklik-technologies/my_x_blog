@@ -28,11 +28,9 @@ class ConfigResource extends Resource
     {
         $key = isset($form->model->key) ? $form->model->key : null;
 
-        if($key === 'theme_color') {
-            $keyValueField = Forms\Components\ColorPicker::make('value')
-                ->columnSpan('full');
-        }
-        elseif($key === 'icon_image') {
+        if ($key === 'theme_color') {
+            $keyValueField = Forms\Components\ColorPicker::make('value')->columnSpan('full');
+        } elseif ($key === 'icon_image') {
             $keyValueField = Forms\Components\FileUpload::make('value')
                 ->directory('configs/icon_images')
                 ->disk('public')
@@ -40,37 +38,37 @@ class ConfigResource extends Resource
                 ->imageEditor()
                 ->imageEditorAspectRatios(['1.1'])
                 ->columnSpan('full');
-        }
-        elseif($key === 'logo_image') {
+        } elseif ($key === 'logo_image') {
             $keyValueField = Forms\Components\FileUpload::make('value')
                 ->directory('configs/logo_images')
                 ->disk('public')
                 ->image()
                 ->imageEditor()
                 ->columnSpan('full');
-        }
-        elseif($key === 'hero_image') {
+        } elseif ($key === 'hero_image') {
             $keyValueField = Forms\Components\FileUpload::make('value')
                 ->directory('configs/hero_images')
                 ->disk('public')
                 ->image()
                 ->imageEditor()
                 ->columnSpan('full');
-        }
-        elseif($key === 'hero_bg_image') {
+        } elseif ($key === 'hero_bg_image') {
             $keyValueField = Forms\Components\FileUpload::make('value')
                 ->directory('configs/hero_bg_image')
                 ->disk('public')
                 ->image()
                 ->imageEditor()
                 ->columnSpan('full');
-        }
-        elseif($key === 'keywords') {
+        } elseif ($key === 'keywords') {
             $keyValueField = Forms\Components\TagsInput::make('value')
                 ->separator(',')
                 ->columnSpanFull();
-        }
-        else {
+        } elseif ($key === 'about_description') {
+            $keyValueField = Forms\Components\RichEditor::make('value')
+                ->fileAttachmentsDisk('public')
+                ->fileAttachmentsDirectory('pages/about/images')
+                ->columnSpanFull();
+        } else {
             $keyValueField = Forms\Components\Textarea::make('value')
                 ->maxLength(65535)
                 ->columnSpan('full');
