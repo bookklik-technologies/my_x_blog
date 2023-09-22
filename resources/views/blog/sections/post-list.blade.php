@@ -10,11 +10,12 @@
             </div>
             <div class="left-0 w-full lg:p-4 flex flex-col">
                 <div class="flex text-sm">
-                    <p class="mr-4"><i class="fas fa-clock mr-2"></i>{{ $post->created_at->format('d M Y') }}</p>
-                    <p><i class="fas fa-layer-group mr-2"></i>{{ $post->category->name }}</p>
+                    <p class="mr-4"><i class="fas fa-clock mr-2 text-gray-500"></i>{{ $post->created_at->format('d M Y') }}</p>
+                    <p><i class="fas fa-tags mr-2 text-gray-500"></i>{{ $post->category->name }}</p>
                 </div>
                 <h1 class="text-2xl lg:text-5xl font-bold lg:my-2">{{ $post->title }}</h1>
-                <div class="mb-2 lg:mb-6">
+                <div class="mb-2 lg:mb-6 text-sm text-gray-500">
+                    tags:
                     @php
                         $keywords = explode(',', $post->keywords);
                     @endphp

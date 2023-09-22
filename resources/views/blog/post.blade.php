@@ -178,7 +178,7 @@
                 </div>
             </form>
 
-            @if ($post->comments)
+            @if ($post->comments && $post->comments->count() > 0)
                 <div class="grid grid-rows-1 gap-2 bg-gray-200 p-2 rounded-lg">
                     @foreach ($post->comments as $comment)
                         <div class="flex flex-col px-1 w-full">
