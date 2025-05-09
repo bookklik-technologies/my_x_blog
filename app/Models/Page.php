@@ -18,6 +18,11 @@ class Page extends Model
     public const EDITOR_TYPE_EDITORJS = 2;
     public const EDITOR_TYPE_GRAPEJS = 3;
 
+    protected $casts = [
+        'keywords' => 'array',
+        'comments_enabled' => 'boolean'
+    ];
+
     protected $fillable = [
         'title',
         'slug',
@@ -28,6 +33,7 @@ class Page extends Model
         'status',
         'author_id',
         'category_id',
+        'comments_enabled',
     ];
 
     public function author()

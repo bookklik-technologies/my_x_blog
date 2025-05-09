@@ -6,7 +6,7 @@
             <a href="{{ route('blog.home') }}">
                 @php
                     $logo_image = $configs->firstWhere('key', 'logo_image') ? url('storage/' . $configs->firstWhere('key', 'logo_image')->value) : null;
-                    $logo_image = $logo_image && !file_exists($logo_image) ? url('image/my_x_blog_logo.png') : $logo_image;
+                    $logo_image = ($logo_image == null || $logo_image == url('storage/')) ? url('image/my_x_blog_logo.png') : $logo_image;
                 @endphp
                 @if ($logo_image)
                     <img src="{{ $logo_image }}" class="h-12" />
@@ -32,8 +32,7 @@
             <a href="{{ route('blog.categories') }}"
                 class="rounded-lg px-6 flex items-center h-12 -mx-2 lg:mx-0">Categories</a>
             <a href="{{ route('blog.about') }}"
-                class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About
-                Us</a>
+                class="xb-bg-accent hover:opacity-80 text-white rounded-lg px-6 flex items-center justify-center mx-4 mb-4 lg:mb-0 lg:mr-0 lg:ml-4 h-12 mt-4 lg:mt-0">About</a>
         </div>
     </div>
 </nav>

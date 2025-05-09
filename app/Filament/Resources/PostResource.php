@@ -48,8 +48,8 @@ class PostResource extends Resource
                 ->autofocus()
                 ->required()
                 ->placeholder(__('Description')),
-            Forms\Components\TextInput::make('keywords')
-                ->maxLength(255)
+            Forms\Components\TagsInput::make('keywords')
+                ->separator(',')
                 ->columnSpanFull(),
             Forms\Components\RichEditor::make('body')
                 ->columnSpan('full')
@@ -87,6 +87,12 @@ class PostResource extends Resource
             Forms\Components\Hidden::make('author_id')
                 ->required()
                 ->default(auth()->user()->id),
+            Forms\Components\Toggle::make('comments_enabled')
+                ->autofocus()
+                ->required()
+                ->inline()
+                ->columnSpanFull()
+                ->default(false),
         ]);
     }
 

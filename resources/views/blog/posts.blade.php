@@ -7,6 +7,14 @@
 
     <section class="px-6 lg:px-16">
 
+        @include('blog.sections.searchbar')
+
+    </section>
+
+    <div class="w-full h-8 lg:h-16"></div>
+
+    <section class="px-6 lg:px-16">
+
         @include('blog.sections.post-list')
 
     </section>

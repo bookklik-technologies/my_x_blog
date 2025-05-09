@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('status')->default('draft')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('category_id');
+            $table->boolean('comments_enabled')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

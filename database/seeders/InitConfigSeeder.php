@@ -93,7 +93,7 @@ class InitConfigSeeder extends Seeder
             ],
             [
                 'id' => 12,
-                'key' => 'color_theme',
+                'key' => 'theme_color',
                 'value' => '#ff6600',
                 'created_at' => now(),
                 'updated_at' => now(),

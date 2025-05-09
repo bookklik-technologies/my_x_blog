@@ -11,7 +11,7 @@
     @if (Route::currentRouteName() == 'blog.post')
         <meta name="description" content="{{ $post->description }}">
         <meta name="keywords"
-            content="{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null . $post->keywords }}">
+            content="{{ $post->keywords }},{{ $configs->firstWhere('key', 'keywords') ? $configs->firstWhere('key', 'keywords')->value : null }}">
         <meta property="og:title" content="{{ $post->title }}" />
         <meta property="og:description" content="{{ $post->description }}">
         <meta property="og:url" content="{{ route('blog.post', $post->slug) }}" />
@@ -35,7 +35,7 @@
 
     @php
         $icon_image = $configs->firstWhere('key', 'icon_image') ? url('storage/' . $configs->firstWhere('key', 'icon_image')->value) : null;
-        $icon_image = $icon_image && !file_exists($icon_image) ? url('image/my_x_blog_icon.svg') : $icon_image;
+        $icon_image = ($icon_image == null || $icon_image == url('storage/')) ? url('image/my_x_blog_icon.svg') : $icon_image;
     @endphp
     <link rel="shortcut icon" href="{{ $icon_image }}" type="image/x-icon">
 

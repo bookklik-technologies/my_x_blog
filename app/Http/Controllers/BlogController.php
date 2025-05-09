@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Page;
 use App\Models\Category;
+use App\Models\Comment;
 
 class BlogController extends Controller
 {
@@ -33,6 +34,28 @@ class BlogController extends Controller
         return view('blog.posts', ['posts' => $posts]);
     }
 
+    public function search(Request $request)
+    {
+        $posts = Post::search($request->search)
+            ->latest()
+            ->where('status', 'published')
+            ->paginate(10);
+
+        $keyword = $request->search ? $request->search : null;
+
+        return view('blog.posts', ['posts' => $posts, 'keyword' => $keyword]);
+    }
+
+    public function keyword($key)
+    {
+        $posts = Post::keyword($key)
+            ->latest()
+            ->where('status', 'published')
+            ->paginate(10);
+
+        return view('blog.posts', ['posts' => $posts, 'keyword' => $key]);
+    }
+
     public function page($slug)
     {
         $page = Page::where('slug', $slug)->where('status', 'published')->firstOrFail();
@@ -57,6 +80,20 @@ class BlogController extends Controller
         $categories = Category::all();
 
         return view('blog.categories', ['categories' => $categories]);
+    }
+
+    public function commentSubmit(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'body' => 'required',
+            'table_name' => 'required',
+            'table_row_id' => 'required',
+        ]);
+
+        $comment = Comment::create($request->all());
+
+        return redirect()->back()->with('success', 'Comment submitted successfully.');
     }
 
     public function about()
